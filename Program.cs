@@ -8,7 +8,7 @@ internal class Program
         Console.Write("number: ");
         int selection = int.Parse(Console.ReadLine()!);
 
-        Action[] fns = [four_one, four_two, four_three, four_four, four_five, four_six, four_seven, four_eight, four_nine];
+        Action[] fns = [four_one, four_two, four_three, four_four, four_five, four_six, four_seven, four_eight, four_nine, four_ten, four_eleven, four_twelve];
         fns[--selection]();
     }
 
@@ -166,5 +166,55 @@ internal class Program
         // i dont think c# is made for this.. would look a gazillion times
         // nicer in a language like f# probably
         Console.WriteLine(string.Join('\n', Enumerable.Repeat(string.Join(string.Concat(['-', .. Enumerable.Repeat('O', o_per_group), '-']), Enumerable.Repeat(string.Concat(Enumerable.Repeat('X', x_per_group)), o_patterns + 1)), rows)));
+    }
+
+    static void four_ten()
+    {
+        Console.WriteLine("mata in ett ord");
+        string input = Console.ReadLine()!;
+        foreach (var c in input.AggregateBy(c => c, _ => 0, (acc, c) => ++acc).Where(x => x.Value > 1).Select(x => x.Key))
+        {
+            Console.WriteLine($"'{c}' förekommer mer än 1 gång");
+        }
+    }
+
+    static void four_eleven()
+    {
+        Console.WriteLine("Bestäm kvadratens sidlängd");
+        int side = int.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Bestäm rutnätets bredd");
+        int width = int.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Bestäm rutnätets höjd");
+        int height = int.Parse(Console.ReadLine()!);
+
+        string row = string.Join(' ', Enumerable.Repeat(string.Concat(Enumerable.Repeat('*', side)), width));
+        string full_row = string.Join('\n', Enumerable.Repeat(row, side));
+        string full_grid = string.Join("\n\n", Enumerable.Repeat(full_row, height));
+
+        Console.WriteLine(full_grid);
+    }
+
+    static void four_twelve()
+    {
+        Console.WriteLine("skriv in ord 1");
+        string word1 = Console.ReadLine()!;
+
+        Console.WriteLine("skriv in ord 2");
+        string word2 = Console.ReadLine()!;
+
+        var counts1 = word1.AggregateBy(c => c, _ => 0, (acc, c) => ++acc);
+        KeyValuePair<char, int>[] counts2 = [.. word2.AggregateBy(c => c, _ => 0, (acc, c) => ++acc)];
+
+        foreach (var x in counts1)
+        {
+            if (x.Value > counts2.First(y => y.Key == x.Key).Value)
+            {
+                Console.Write(x.Key);
+            }
+        }
+
+        Console.WriteLine();
     }
 }
