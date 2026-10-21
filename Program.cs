@@ -205,18 +205,11 @@ internal class Program
         string word2 = Console.ReadLine()!;
 
         var counts1 = word1.AggregateBy(c => c, _ => 0, (acc, c) => ++acc);
-        KeyValuePair<char, int>[] counts2 = [.. word2.AggregateBy(c => c, _ => 0, (acc, c) => ++acc)];
+        var counts2 = word2.AggregateBy(c => c, _ => 0, (acc, c) => ++acc).ToDictionary();
 
-        foreach (var x in counts1)
-        {
-            var snd = counts2.FirstOrDefault(y => y.Key == x.Key).Value;
-
-            if (snd != 0 && x.Value > snd)
-            {
-                Console.Write(x.Key);
-            }
-        }
-
-        Console.WriteLine();
+        Console.WriteLine(
+            string.Concat(counts1.Where(x => x.Value > counts2.GetValueOrDefault(x.Key))
+                                 .Select(x => x.Key))
+        );
     }
 }
