@@ -24,7 +24,7 @@ internal class Program
             Console.WriteLine(i);
         }
 
-        for (int i = 1000; i <= 1400; i++)
+        for (int i = 1000; i <= 1400; i+=50)
         {
             Console.WriteLine(i);
         }
