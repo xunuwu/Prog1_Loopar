@@ -209,7 +209,6 @@ internal class Program
 
         foreach (var x in counts1)
         {
-            // todo dont use first here!! sort of doesnt work
             var snd = counts2.FirstOrDefault(y => y.Key == x.Key).Value;
 
             if (snd != 0 && x.Value > snd)
